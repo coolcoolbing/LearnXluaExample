@@ -12,10 +12,17 @@ xlua.hotfix(CS.Treasour,'CreatePrize',function(self)
 end
 )
 
+--******************************************************
 xlua.private_accessible(CS.Gun) --访问私有函数
 --2.玩家金币钻石不够时没有相应处理。
 xlua.hotfix(CS.Gun,'Attack',function(self)
      if UnityEngine.Input.GetMouseButtonDown(0) then  --静态函数不需要self
+
+	        --1.2与ui交互时不能发射子弹
+
+			if UnityEngine.EventSystems.EventSystem.current:IsPointerOverGameObject() then --用于检查有ui是否被按下
+				return
+            end
 
 			if self.gold<1+(self.gunLevel-1)*2 or gold==0 then
 			   return
@@ -38,3 +45,47 @@ xlua.hotfix(CS.Gun,'Attack',function(self)
 	 end
 end
 )
+
+--*******************************
+--1.2技能扣掉的砖石太多了
+xlua.private_accessible(CS.Fire)  --访问私有的方法
+xlua.hotfix(CS.Fire,"Start",function(self)
+       self.reduceDiamands=8;
+end
+)
+
+xlua.private_accessible(CS.Ice)  --访问私有的方法
+xlua.hotfix(CS.Ice,"Start",function(self)
+       self.reduceDiamands=8;
+end
+)
+
+xlua.private_accessible(CS.ButterFly)  --访问私有的方法
+xlua.hotfix(CS.ButterFly,"Start",function(self)
+       self.reduceDiamands=5;
+end
+)
+
+--****************************************
+local util=require "util"
+
+xlua.private_accessible(CS.Boss)
+util.hotfix_ex(CS.Boss,"Start",function(self)
+     self.Start(self)   --先让其执行完原先start里面的内容
+	 self.m_reduceGold = m_reduceGold-20; --然后执行我们新添加的代码
+end)
+
+xlua.private_accessible(CS.DeffendBoss)
+util.hotfix_ex(CS.DeffendBoss,"Start",function(self)
+     self.Start(self)   --先让其执行完原先start里面的内容
+	 self.m_reduceGold = -30; --然后执行我们新添加的代码
+end)
+
+xlua.private_accessible(CS.InvisibleBoss)
+util.hotfix_ex(CS.InvisibleBoss,"Start",function(self)
+     self.Start(self)   --先让其执行完原先start里面的内容
+	 --self.m_reduceDiamond=m_reduceDiamond-5 --鳄鱼扣的是砖石
+
+end)
+
+

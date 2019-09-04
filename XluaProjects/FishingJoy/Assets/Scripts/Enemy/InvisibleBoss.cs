@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XLua;
 /// <summary>
 /// 会隐藏的boss
 /// </summary>
+[Hotfix]
 public class InvisibleBoss : Boss
 {
 
@@ -26,8 +28,11 @@ public class InvisibleBoss : Boss
         sr = GetComponent<SpriteRenderer>();
         bossAudio = GetComponent<AudioSource>();
         playerTransform = Gun.Instance.transform;
+        
+        m_reduceDiamond = 0;
     }
 
+    [LuaCallCSharp]
     // Update is called once per frame
     void Update()
     {

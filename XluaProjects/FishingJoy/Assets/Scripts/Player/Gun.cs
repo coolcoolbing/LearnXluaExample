@@ -74,8 +74,8 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        gold = 5;
-        diamands = 5;
+        gold = 100;
+        diamands = 100;
         level = 2;
         bullectAudio = GetComponent<AudioSource>();
     }
@@ -83,7 +83,7 @@ public class Gun : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame

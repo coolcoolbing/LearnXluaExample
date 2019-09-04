@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XLua;
 /// <summary>
 /// 有护盾的boss
 /// </summary>
+[Hotfix]
 public class DeffendBoss : Boss
 {
 
@@ -13,7 +15,7 @@ public class DeffendBoss : Boss
 
     public GameObject deffend;
 
-
+    [LuaCallCSharp]
     void Start()
     {
         fire = transform.Find("Fire").gameObject;
@@ -22,6 +24,8 @@ public class DeffendBoss : Boss
         gameObjectAni = GetComponent<Animator>();
         bossAudio = GetComponent<AudioSource>();
         playerTransform = Gun.Instance.transform;
+        m_reduceGold = 10;
+        m_reduceDiamond = 0;
     }
 
     // Update is called once per frame

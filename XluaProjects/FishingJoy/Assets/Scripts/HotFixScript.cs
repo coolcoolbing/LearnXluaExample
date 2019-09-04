@@ -11,13 +11,11 @@ public class HotFixScript : MonoBehaviour {
     
     private LuaEnv luaEnv;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         luaEnv = new LuaEnv();        //开启lua虚拟机
         luaEnv.AddLoader(MyLoader);   //添加自己的loader
         
         luaEnv.DoString("require 'Fish'");  //根据自定义的loader找到对应模块名的文件
-
-
 	}
 	
 	private byte[] MyLoader(ref string filePath)

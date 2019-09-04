@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XLua;
 /// <summary>
 /// boss脚本
 /// </summary>
-
+[Hotfix]
 public class Boss : MonoBehaviour
 {
 
@@ -34,6 +35,7 @@ public class Boss : MonoBehaviour
     protected bool hasIce;
     protected bool isAttack;
 
+    [LuaCallCSharp]
     void Start()
     {
         fire = transform.Find("Fire").gameObject;
