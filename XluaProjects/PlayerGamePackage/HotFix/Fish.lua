@@ -88,4 +88,17 @@ util.hotfix_ex(CS.InvisibleBoss,"Start",function(self)
 
 end)
 
+--***************
+--1.3
 
+--1.boss撞击玩家当钻石金币不够时会产生负数。
+util.hotfix_ex(CS.Gun,"GoldChange",function(self,number)
+       self.GoldChange(self,number)
+	   if self.gold<-number then
+	      self.gold=0;
+	      return
+	   end
+end)
+
+--2.炮台3太强，且钻石没用处，不削弱，只有氪金才可使用。
+--3.大鱼太多。
